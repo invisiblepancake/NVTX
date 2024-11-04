@@ -652,9 +652,9 @@ NVTX_DECLSPEC void NVTX_API nvtxMarkW(const wchar_t* message);
 * eventAttrib.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;
 * eventAttrib.messageType = NVTX_MESSAGE_TYPE_ASCII;
 * eventAttrib.message.ascii = "my range";
-* nvtxRangeId_t rangeId = nvtxDomainRangeStartEx(&eventAttrib);
+* nvtxRangeId_t rangeId = nvtxDomainRangeStartEx(domain, &eventAttrib);
 * // ...
-* nvtxDomainRangeEnd(rangeId);
+* nvtxDomainRangeEnd(domain, rangeId);
 * \endcode
 *
 * \sa
@@ -744,9 +744,9 @@ NVTX_DECLSPEC nvtxRangeId_t NVTX_API nvtxRangeStartW(const wchar_t* message);
 * eventAttrib.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;
 * eventAttrib.messageType = NVTX_MESSAGE_TYPE_ASCII;
 * eventAttrib.message.ascii = "my range";
-* nvtxRangeId_t rangeId = nvtxDomainRangeStartEx(&eventAttrib);
+* nvtxRangeId_t rangeId = nvtxDomainRangeStartEx(domain, &eventAttrib);
 * // ...
-* nvtxDomainRangeEnd(rangeId);
+* nvtxDomainRangeEnd(domain, rangeId);
 * \endcode
 *
 * \sa
@@ -1042,7 +1042,7 @@ typedef enum nvtxResourceGenericType_t
 * attribs.messageType = NVTX_MESSAGE_TYPE_ASCII;
 * attribs.message.ascii = "Single thread access to database.";
 *
-* nvtxResourceHandle_t handle = nvtxDomainResourceCreate(domain, attribs);
+* nvtxResourceHandle_t handle = nvtxDomainResourceCreate(domain, &attribs);
 * \endcode
 *
 * \sa
@@ -1139,7 +1139,7 @@ typedef struct nvtxResourceHandle* nvtxResourceHandle_t;
 * attribs.identifier.pValue = (const void*)pMutex;
 * attribs.messageType = NVTX_MESSAGE_TYPE_ASCII;
 * attribs.message.ascii = "Single thread access to database.";
-* nvtxResourceHandle_t handle = nvtxDomainResourceCreate(domain, attribs);
+* nvtxResourceHandle_t handle = nvtxDomainResourceCreate(domain, &attribs);
 * \endcode
 *
 * \sa
@@ -1168,7 +1168,8 @@ NVTX_DECLSPEC nvtxResourceHandle_t NVTX_API nvtxDomainResourceCreate(nvtxDomainH
 * attribs.identifier.pValue = (const void*)pMutex;
 * attribs.messageType = NVTX_MESSAGE_TYPE_ASCII;
 * attribs.message.ascii = "Single thread access to database.";
-* nvtxResourceHandle_t handle = nvtxDomainResourceCreate(domain, attribs);
+* nvtxResourceHandle_t handle = nvtxDomainResourceCreate(domain, &attribs);
+* // ...
 * nvtxDomainResourceDestroy(handle);
 * \endcode
 *
@@ -1341,7 +1342,7 @@ NVTX_DECLSPEC void NVTX_API nvtxNameOsThreadW(uint32_t threadId, const wchar_t* 
 *
 * \par Example:
 * \code
-* nvtxDomainCreateA("com.nvidia.nvtx.example");
+* nvtxDomainHandle_t domain = nvtxDomainCreateA("com.nvidia.nvtx.example");
 * nvtxStringHandle_t message = nvtxDomainRegisterStringA(domain, "registered string");
 * nvtxEventAttributes_t eventAttrib = {0};
 * eventAttrib.version = NVTX_VERSION;
@@ -1406,6 +1407,7 @@ NVTX_DECLSPEC nvtxStringHandle_t NVTX_API nvtxDomainRegisterStringW(nvtxDomainHa
 * eventAttrib2.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;
 * eventAttrib2.message.ascii = "nvtxDomainMarkEx to com.nvidia.nvtx.example";
 * nvtxDomainMarkEx(domain, &eventAttrib2);
+*
 * nvtxDomainDestroy(domain);
 * \endcode
 *
@@ -1428,6 +1430,7 @@ NVTX_DECLSPEC nvtxDomainHandle_t NVTX_API nvtxDomainCreateW(const wchar_t* name)
 * \par Example:
 * \code
 * nvtxDomainHandle_t domain = nvtxDomainCreateA("com.nvidia.nvtx.example");
+* // ...
 * nvtxDomainDestroy(domain);
 * \endcode
 *
