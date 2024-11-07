@@ -51,8 +51,8 @@
 #define NVTX_YIELD()    sched_yield()
 #define NVTX_MEMBAR()   __sync_synchronize()
 /* Ensure full memory barrier for atomics, to match Windows functions */
-#define NVTX_ATOMIC_WRITE_32(address, value)                  __sync_synchronize();       __sync_lock_test_and_set(address, value)
-#define NVTX_ATOMIC_CAS_32(old, address, exchange, comparand) __sync_synchronize(); old = __sync_val_compare_and_swap(address, exchange, comparand)
+#define NVTX_ATOMIC_WRITE_32(address, value)                  __sync_synchronize(); *address = value; __sync_synchronize()
+#define NVTX_ATOMIC_CAS_32(old, address, exchange, comparand) old = __sync_val_compare_and_swap(address, comparand, exchange)
 #else
 #error The library does not support your configuration!
 #endif
