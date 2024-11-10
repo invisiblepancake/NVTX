@@ -24,7 +24,6 @@ done
 # Install packages and test
 for PY_VERSION in 38 39 310 311; do
     PYBIN=/opt/python/cp${PY_VERSION}*/bin
-    ${PYBIN}/pip install nvtx --no-index -f /io/python/wheels/
-    ${PYBIN}/pip install -r /io/python/test_requirements.txt
+    ${PYBIN}/pip install nvtx[test] --no-index -f /io/python/wheels/
     (cd "$HOME"; ${PYBIN}/pytest /io/python/nvtx)
 done

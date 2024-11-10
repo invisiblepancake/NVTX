@@ -19,12 +19,13 @@ exclude = '''
 '''
 
 [build-system]
-requires = ["setuptools", "wheel", "Cython"]
+requires = ["setuptools", "wheel", "Cython==3.0.11"]
 
 [project]
 name = "nvtx"
 version = "0.2.10"
 description="PyNVTX - Python code annotation library"
+readme = "README.md"
 license = { text = "Apache 2.0" }
 authors = [{name = "NVIDIA Corporation"}]
 classifiers = [
@@ -39,10 +40,23 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 [project.urls]
 Homepage = "https://github.com/NVIDIA/NVTX"
+Documentation = "https://nvtx.readthedocs.io/"
+Repository = "https://github.com/NVIDIA/NVTX"
+License = "https://nvidia.github.io/NVTX/LICENSE.txt"
+Issues = "https://github.com/NVIDIA/NVTX/issues"
+
+[project.optional-dependencies]
+test = ["pytest", "Cython==3.0.11"]
 
 [tool.setuptools.package-data]
 "nvtx._lib" = ["*.pxd"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",  # Recomended by pytest: https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#choosing-a-test-layout-import-rules
+]
