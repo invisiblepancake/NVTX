@@ -68,7 +68,6 @@ jobs:
         CIBW_TEST_COMMAND: "pytest {package}/tests"
         CIBW_TEST_REQUIRES: "pytest Cython"
         CIBW_REPAIR_WHEEL_COMMAND_LINUX: 'auditwheel repair -w {dest_dir} {wheel}'
-        CIBW_ENVIRONMENT: "C_INCLUDE_PATH=$(pwd)/c/include"
       with:
         output-dir: dist
         package-dir: python

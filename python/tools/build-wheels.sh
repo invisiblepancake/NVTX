@@ -10,9 +10,6 @@ function repair_wheel {
     fi
 }
 
-
-export C_INCLUDE_PATH=/io/c/include
-
 # Compile wheels
 for PY_VERSION in 38 39 310 311; do
     PYBIN=/opt/python/cp${PY_VERSION}*/bin/
