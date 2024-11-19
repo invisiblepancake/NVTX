@@ -41,7 +41,7 @@ def main():
     profiler.enable()
 
     try:
-        run_path(script_file)
+        run_path(script_file, run_name='__main__')
     finally:
         profiler.disable()
 
